@@ -10,6 +10,7 @@ def check_ifreal(y: pd.Series) -> bool:
     """
     Function to check if the given series has real or discrete values
     """
+    return not y.nunique<=20
 
     pass
 
@@ -18,7 +19,15 @@ def entropy(Y: pd.Series) -> float:
     """
     Function to calculate the entropy
     """
-
+    counts_of_unique_class=Y.value_counts()
+    unique_class=set(Y)
+    total_number_of_obs=0
+    for classes in unique_class:
+        total_number_of_obs+=counts_of_unique_class[classes]
+    entropy1=0
+    for classes in unique_class:
+        entropy1-=((counts_of_unique_class[classes]/total_number_of_obs)*np.log2(counts_of_unique_class[classes]/total_number_of_obs))
+    return entropy1
     pass
 
 
